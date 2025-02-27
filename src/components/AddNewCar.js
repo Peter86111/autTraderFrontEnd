@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import UpdateCar from './UpdateCar'
 
 function AddNewCar(props)
 {
@@ -9,6 +10,24 @@ function AddNewCar(props)
       color: "",
       myear: ""
     })
+
+    useEffect(() => 
+    {
+      if(props.carObjData)
+        {
+          setCardata({
+            brand: props.carObjData.brand || '',
+            type: props.carObjData.type || '',
+            color: props.carObjData.color || '',
+            myear: props.carObjData.myear || ''
+            ? new Date(new Date(props.carObjData.myear).getTime() - new Date().getTimezoneOffset()*60000)
+            .toISOString()
+            .split('T')[0]
+            : ''
+          });
+        }
+    })
+    , [props.carObjData] // Ha a `props.carObjData` változik, frissítjük az űrlapot
 
   const handleChange = (event) =>
   {
@@ -83,7 +102,8 @@ function AddNewCar(props)
           className='form-control'
           placeholder='Autó gyártási éve-hónap-nap'
         />
-        <button type='submit' className='btn btn-primary'>Elküld</button>
+        <button type='button' className='btn btn-primary'>Elküld</button>
+        <UpdateCar carObjData={carObjData} carId={props.carObjData.id}/>
       </form>
 
     </div>

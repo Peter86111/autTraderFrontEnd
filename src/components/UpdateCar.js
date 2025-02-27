@@ -1,9 +1,14 @@
 import React from 'react'
 
-function UpdateCar()
+function UpdateCar(props)
 {
+const handleCarData = () => {
+    console.log(props.carObjData)
+    console.log(props.carId)
+}
+
     return (
-        <div>UpdateCar</div>
+        <button type='button' className='btn btn-primary'>Elküld</button>
     )
 }
 

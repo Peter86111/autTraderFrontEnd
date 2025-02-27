@@ -1,7 +1,6 @@
 
 import { useState } from 'react';
 import './App.css';
-import AddNewCar from './components/AddNewCar';
 import GetallCars from './components/GetallCars';
 
 
@@ -17,8 +16,7 @@ function App()
   console.log(count)
 
   return (
-    <div className='container'>
-      <AddNewCar handleCount={handleCount} />
+    <div className='container'>      
       <GetallCars count={count} handleCount={handleCount}/>
     </div>
   )
