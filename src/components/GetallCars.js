@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react'
 import DeleteCar from './DeleteCar'
 import AddNewCar from './AddNewCar'
 
+
 function GetallCars(props)
 {
     const url = `https://localhost:7118/cars`
     const [carsData, setCarsData] = useState([])
-    const [carObjData, setCarObjData] = useState(null)
+    const [carObj, setCarObj] = useState(null)
 
     useEffect(() =>
     {
@@ -30,33 +31,34 @@ function GetallCars(props)
         })()
     }, [props.count])
 
-    const clickHandle = (carFromCard) =>
-        {
-            setCarObjData(carFromCard)
-        }
+
+    const handleCarObj = (carFromCard) =>
+    {
+        setCarObj(carFromCard)
+    }
 
     const carElments = carsData.map(
         car =>
         {
             return (
-                <div onDoubleClick={() => clickHandle(car)} className="card m-3 pt-2" style={{ 'width': 200, 'float': 'left' }} key={car.id}>
+                <div onDoubleClick={() => { handleCarObj(car) }} className="card m-3 pt-2" style={{ 'width': 200, 'float': 'left' }} key={car.id}>
                     <div className="card-header">{car.brand}</div>
                     <div className="card-body">{car.type}</div>
                     <div className="card-footer">{car.color}</div>
                     <div className="card-footer">{car.myear}</div>
-                    <div><DeleteCar carId={car.id} handleCount={props.handleCount}/></div>
+                    <div><DeleteCar carId={car.id} handleCount={props.handleCount} /></div>
                 </div>
             )
         }
     )
 
-    return ( 
+    return (
         <>
-            <AddNewCar handleCount={props.handleCount} carObjData={carObjData || {}}/>    
+            <AddNewCar handleCount={props.handleCount} carObj={carObj || {}} />
             <div>{carElments}</div>
-        </>   
+        </>
 
     )
 }
 
-export default GetallCars
+export default GetallCars;

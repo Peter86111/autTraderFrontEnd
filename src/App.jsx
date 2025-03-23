@@ -16,8 +16,8 @@ function App()
   console.log(count)
 
   return (
-    <div className='container'>      
-      <GetallCars count={count} handleCount={handleCount}/>
+    <div className='container'>
+      <GetallCars count={count} handleCount={handleCount} />
     </div>
   )
 }

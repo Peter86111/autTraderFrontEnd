@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import UpdateCar from './UpdateCar'
 
+
 function AddNewCar(props)
 {
   const [carData, setCardata] = useState(
@@ -11,23 +12,22 @@ function AddNewCar(props)
       myear: ""
     })
 
-    useEffect(() => 
+  useEffect(() =>
+  {
+    if (props.carObj)
     {
-      if(props.carObjData)
-        {
-          setCardata({
-            brand: props.carObjData.brand || '',
-            type: props.carObjData.type || '',
-            color: props.carObjData.color || '',
-            myear: props.carObjData.myear || ''
-            ? new Date(new Date(props.carObjData.myear).getTime() - new Date().getTimezoneOffset()*60000)
+      setCardata({
+        brand: props.carObj.brand || '',
+        type: props.carObj.type || '',
+        color: props.carObj.color || '',
+        myear: props.carObj.myear
+          ? new Date(new Date(props.carObj.myear).getTime() - new Date().getTimezoneOffset() * 60000)
             .toISOString()
             .split('T')[0]
-            : ''
-          });
-        }
-    })
-    , [props.carObjData] // Ha a `props.carObjData` változik, frissítjük az űrlapot
+          : ''
+      });
+    }
+  }, [props.carObj]); // Ha a `props.carObjData` változik, frissítjük az űrlapot
 
   const handleChange = (event) =>
   {
@@ -57,6 +57,7 @@ function AddNewCar(props)
     const response = await request.json()
     props.handleCount()
     console.log(response.message)
+
   }
 
   return (
@@ -102,12 +103,12 @@ function AddNewCar(props)
           className='form-control'
           placeholder='Autó gyártási éve-hónap-nap'
         />
-        <button type='button' className='btn btn-primary'>Elküld</button>
-        <UpdateCar carObjData={carObjData} carId={props.carObjData.id}/>
+        <button type='submit' className='btn btn-primary'>Elküld</button>
+        <UpdateCar carData={carData} carId={props.carObj.id} handleCount={props.handleCount} />
       </form>
 
     </div>
   )
 }
 
-export default AddNewCar
+export default AddNewCar;

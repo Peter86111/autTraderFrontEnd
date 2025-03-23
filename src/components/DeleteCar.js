@@ -1,5 +1,6 @@
 import React from 'react'
 
+
 function DeleteCar(props)
 {
     const handleCarId = async () =>
@@ -29,4 +30,4 @@ function DeleteCar(props)
     )
 }
 
-export default DeleteCar
+export default DeleteCar;
